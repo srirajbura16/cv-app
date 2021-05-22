@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FormPersonal from './forms/form-personl';
+import FormPersonal from './FormPersonal';
 import PersonalInfo from './PersonalInfo.js';
 
 class Personal extends Component {
@@ -7,12 +7,12 @@ class Personal extends Component {
     super(props);
 
     this.state = {
-      show: false,
+      showForm: false,
       submit: true,
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
+      firstName: 'Dutch',
+      lastName: 'Van Der Linde',
+      email: 'weneedmoney@tahiti',
+      phone: '1899',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -28,7 +28,7 @@ class Personal extends Component {
 
   handleClick() {
     this.setState((state) => ({
-      show: !state.show,
+      showForm: !state.showForm,
       submit: !state.submit,
     }));
   }
@@ -37,20 +37,20 @@ class Personal extends Component {
     e.preventDefault();
     this.setState((state) => ({
       submit: !state.submit,
-      show: !state.show,
+      showForm: !state.showForm,
     }));
     console.log(this.state);
   }
 
   render() {
-    const { show, submit, firstName, lastName, email, phone } = this.state;
+    const { showForm, firstName, lastName, email, phone } = this.state;
     return (
       <div>
         <h1>Personal Info</h1>
-        <button onClick={this.handleClick}>Add Info</button>
+        <button onClick={this.handleClick}>Update Info</button>
         <hr />
         <div>
-          {show ? (
+          {showForm ? (
             <FormPersonal
               handleSubmit={this.handleSubmit}
               handleChange={this.handleChange}
@@ -59,17 +59,14 @@ class Personal extends Component {
               email={email}
               phone={phone}
             />
-          ) : null}
-        </div>
-        <div>
-          {submit ? (
+          ) : (
             <PersonalInfo
               firstName={firstName}
               lastName={lastName}
               email={email}
               phone={phone}
             />
-          ) : null}
+          )}
         </div>
       </div>
     );

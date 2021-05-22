@@ -7,12 +7,14 @@ function FormPersonal(props) {
   return (
     <form onSubmit={handleSubmit}>
       <input
+        className="firstName"
         type="text"
         placeholder="First Name"
         onChange={handleChange}
         value={firstName}
       />
       <input
+        className="lastName"
         type="text"
         placeholder="Last Name"
         onChange={handleChange}
@@ -20,6 +22,7 @@ function FormPersonal(props) {
       />
 
       <input
+        className="email"
         type="email"
         placeholder="Email"
         onChange={handleChange}
@@ -27,6 +30,7 @@ function FormPersonal(props) {
       />
 
       <input
+        className="phone"
         type="number"
         placeholder="Phone"
         onChange={handleChange}

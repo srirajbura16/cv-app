@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import Personal from './components/Personal';
-// import Education from './components/Education';
-// import Exprience from './components/Exprience';
+import Personal from './components/personal/Personal';
+import Education from './components/education/Education';
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <div className="resume">
         <Personal />
+        <Education />
       </div>
     );
   }

@@ -5,8 +5,7 @@ function PersonalInfo(props) {
 
   return (
     <div>
-      <div>{firstName}</div>
-      <div>{lastName}</div>
+      <div>{`${firstName} ${lastName}`}</div>
       <div>{email}</div>
       <div>{phone}</div>
     </div>
