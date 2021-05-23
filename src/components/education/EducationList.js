@@ -2,9 +2,6 @@ import React from 'react';
 
 function EducationList(props) {
   const { educationList, editEdu, deleteEdu } = props;
-  console.log(educationList);
-  // console.log(props.educaitonList);
-  // console.log(educationList);
 
   return (
     <div>
@@ -12,7 +9,9 @@ function EducationList(props) {
         return (
           <div>
             <List key={education.id} education={education} />
-            <button onEdit={editEdu}>Edit</button>
+            <button onClick={editEdu} id={education.id}>
+              Edit
+            </button>
             <button onClick={deleteEdu} id={education.id}>
               Delete
             </button>

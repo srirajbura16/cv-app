@@ -9,7 +9,6 @@ class Education extends Component {
 
     this.state = {
       showForm: false,
-      submit: true,
       organisation: '',
       position: '',
       description: '',
@@ -18,7 +17,7 @@ class Education extends Component {
       educationList: [
         {
           organisation: 'Some company',
-          position: 'Your Position',
+          position: 'Leader',
           description: 'Description',
           startDate: 'the start date',
           endDate: 'the end date',
@@ -34,6 +33,16 @@ class Education extends Component {
     this.editEdu = this.editEdu.bind(this);
   }
 
+  resetSetState() {
+    this.setState({
+      organisation: '',
+      position: '',
+      description: '',
+      startDate: '',
+      endDate: '',
+    });
+  }
+
   handleChange(e) {
     this.setState({
       [e.target.className]: e.target.value,
@@ -43,36 +52,69 @@ class Education extends Component {
   displayForm() {
     this.setState((state) => ({
       showForm: !state.showForm,
-      submit: !state.submit,
     }));
+    this.resetSetState();
   }
 
   handleSubmit(e) {
-    //works fine
     e.preventDefault();
     const education = {
       organisation: this.state.organisation,
       position: this.state.position,
       description: this.state.description,
-      startData: this.state.startData,
-      endData: this.state.endData,
+      startDate: this.state.startDate,
+      endDate: this.state.endDate,
       id: nanoid(),
     };
 
     this.setState((state) => ({
-      submit: !state.submit,
       showForm: !state.showForm,
       educationList: state.educationList.concat(education),
+      organisation: '',
+      position: '',
+      description: '',
+      startDate: '',
+      endDate: '',
     }));
-    console.log(this.state.educationList);
+    this.resetSetState();
   }
 
-  editEdu() {}
+  getCurrentEdu(id) {
+    const { educationList } = this.state;
+    const currentEleID = id;
+    const currentEdu = educationList.find((edu) => edu.id === currentEleID);
+    return currentEdu;
+  }
+
+  getCurrentEduIdx(id) {
+    const { educationList } = this.state;
+    const currentEleID = id;
+    const currentEduIdx = educationList.findIndex(
+      (edu) => edu.id === currentEleID
+    );
+    return currentEduIdx;
+  }
+
+  editEdu(e) {
+    //get current edu
+    //set all properties of state to edu value
+    //set showForm to true
+    const currentEdu = this.getCurrentEdu(e.target.id);
+
+    this.setState((state) => ({
+      organisation: currentEdu.organisation,
+      position: currentEdu.position,
+      description: currentEdu.description,
+      startDate: currentEdu.startDate,
+      endDate: currentEdu.endDate,
+      showForm: !state.showForm,
+    }));
+  }
 
   deleteEdu(e) {
     const { educationList } = this.state;
-    const currentEle = e.target.id;
-    const index = educationList.findIndex((edu) => edu.id === currentEle);
+    const index = this.getCurrentEduIdx(e.target.id);
+    console.log(index);
     const newList = [...educationList];
     newList.splice(index, 1);
     this.setState({
@@ -88,6 +130,7 @@ class Education extends Component {
       description,
       startDate,
       endDate,
+      educationList,
     } = this.state;
 
     return (
@@ -103,13 +146,14 @@ class Education extends Component {
               organisation={organisation}
               position={position}
               description={description}
-              startData={startDate}
-              endData={endDate}
+              startDate={startDate}
+              endDate={endDate}
             />
           ) : (
             <EducationList
               deleteEdu={this.deleteEdu}
-              educationList={this.state.educationList}
+              editEdu={this.editEdu}
+              educationList={educationList}
             />
           )}
         </div>
